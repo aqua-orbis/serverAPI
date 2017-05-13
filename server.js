@@ -121,9 +121,9 @@ apiRoutes.route('/mydevices')
 
 //register routes
 apiRoutes.route('/registers')
-    .get(registerCtrl.getAllRegisters)
+    .get(registerCtrl.getAllRegisters);
 apiRoutes.route('/registers/id/:registerid')
-    .get(registerCtrl.getRegisterById)
+    .get(registerCtrl.getRegisterById);
 
 apiRoutes.route('/devices/id/:deviceid/registers')
     .post(registerCtrl.addRegister);
@@ -135,7 +135,12 @@ apiRoutes.route('/devices/id/:deviceid/registers/id/:registerid')
 apiRoutes.route('/newsfeed')
     .get(publicationCtrl.getNewsFeed);
 apiRoutes.route('/publications')
-    .post(publicationCtrl.addPublication)
+    .post(publicationCtrl.addPublication);
+
+apiRoutes.route('/publications/like/id/:publicationid')
+    .post(publicationCtrl.likePublication);
+apiRoutes.route('/publications/unlike/id/:publicationid')
+    .post(publicationCtrl.unlikePublication);
 
 app.use('/api', apiRoutes);
 // end of API routes -------------------------------------

@@ -10,7 +10,11 @@ var publicationSchema = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'userModel'
-    }
+    },
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'userModel'
+    }]
 });
 
 publicationSchema.plugin(mongooseUniqueValidator);
