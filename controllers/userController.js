@@ -174,7 +174,57 @@ exports.followUser = function(req, res) {
                                 message: 'userb not found.'
                             });
                         } else if (userB) {
-                            user.following.push(userB._id);
+                            var exists = false;
+                            for(var i=0; i<user.following.length; i++)
+                            {
+                                if(user.following[i].equals(userB._id)){
+                                    exists = true;
+                                }
+                            }
+                            if(exists==false){
+                                user.following.push(userB._id);
+                            }
+                            user.save(function(err, user) {
+                                if (err) return res.send(500, err.message);
+
+                                res.status(200).jsonp(user);
+                            }); //end of userB.save
+                        }
+                    }); //end of deviceModel.find
+            }
+        }); //end of usermodel.find
+};
+
+exports.unfollowUser = function(req, res) {
+    userModel.findOne({
+            'tokens.token': req.headers['x-access-token']
+        })
+        .exec(function(err, user) {
+            if (err) return res.send(500, err.message);
+            if (!user) {
+                console.log("user not found");
+                res.json({
+                    success: false,
+                    message: 'User not found.'
+                });
+            } else if (user) {
+                userModel.findOne({
+                        '_id': req.params.userid
+                    })
+                    .exec(function(err, userB) {
+                        if (!userB) {
+                            console.log("userb not found");
+                            res.json({
+                                success: false,
+                                message: 'userb not found.'
+                            });
+                        } else if (userB) {
+                            for(var i=0; i<user.following.length; i++)
+                            {
+                                if(user.following[i].equals(userB._id)){
+                                    user.following.splice(i, 1);
+                                }
+                            }
                             user.save(function(err, user) {
                                 if (err) return res.send(500, err.message);
 

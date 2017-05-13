@@ -36,7 +36,9 @@ var tBot = require('./mongoPetitions');
 const token = configTelegram.token;
 
 // Create a bot that uses 'polling' to fetch new updates
-const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(token, {
+    polling: true
+});
 /*
 // Matches "/echo [whatever]"
 bot.onText(/\/echo (.+)/, (msg, match) => {
@@ -54,14 +56,20 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 // Listen for any kind of message. There are different kinds of
 // messages.
 bot.on('message', (msg) => {
-  const chatId = msg.chat.id;
-  var command = msg.text.split(" ")[0];
-  console.log(command);
-  switch(command) {
+    const chatId = msg.chat.id;
+    var command = msg.text.split(" ")[0];
+    console.log(command);
+    switch (command) {
         case "/login":
             var email = msg.text.split(" ")[1];
             var password = msg.text.split(" ")[2];
             var resp = tBot.login(bot, chatId, email, password);
+            //bot.sendMessage(chatId, resp);
+            break;
+        case "/userinfo":
+            var email = msg.text.split(" ")[1];
+            var password = msg.text.split(" ")[2];
+            var resp = tBot.login(bot, chatId, username);
             //bot.sendMessage(chatId, resp);
             break;
         default:

@@ -100,6 +100,8 @@ apiRoutes.route('/users/devices')
     .get(userCtrl.getAllUsersWithDevices);
 apiRoutes.route('/users/follow/:userid')
     .post(userCtrl.followUser);
+apiRoutes.route('/users/unfollow/:userid')
+    .post(userCtrl.unfollowUser);
 
 //device routes
 apiRoutes.route('/devices')

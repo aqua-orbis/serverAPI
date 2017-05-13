@@ -78,3 +78,25 @@ exports.login = function(bot, chatId, email, password) {
             }
         });
 };
+
+
+exports.getUserByUsername = function(username) {
+    userModel.findOne({
+            username: username
+        })
+        .lean()
+        .populate('devices', 'name description icon date registers')
+        .exec(function(err, user) {
+            if (err) return res.send(500, err.message);
+            if (!user) {
+                res.json({
+                    success: false,
+                    message: 'User not found.'
+                });
+            } else if (user) {
+                msgReturn = user.username + ":\n";
+                msgReturn += user.username + ":\n";
+                bot.sendMessage(chatId, msgReturn);
+            }
+        });
+};
