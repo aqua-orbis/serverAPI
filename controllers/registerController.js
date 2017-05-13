@@ -74,6 +74,23 @@ exports.addRegister = function(req, res) {
                             register.save(function(err, register) {
                                 if (err) return res.send(500, err.message);
                                 device.registers.push(register._id);
+                                var d = new Date();
+                                var currentDay = d.getFullYear()+"/" + d.getMonth() + "/" + d.getDay();;
+                                var dayExists = -1;
+                                for(var i=0; i<device.days.length; i++) {
+                                    if(device.days[i].day==currentDay) {
+                                        dayExists = i;
+                                    }
+                                }
+                                if(dayExists==-1) {
+                                    var newDay = {
+                                        day: currentDay,
+                                        value: req.body.value
+                                    };
+                                    device.days.push(newDay);
+                                }else{
+                                    device.days[dayExists].value = (+device.days[dayExists].value) + (+req.body.value);
+                                }
                                 device.save(function(err, device) {
                                     if (err) return res.send(500, err.message);
                                     res.status(200).jsonp(register);

@@ -104,7 +104,7 @@ exports.addDevice = function(req, res) {
                     name: req.body.name,
                     description: req.body.description,
                     icon: req.body.icon,
-                    date: req.body.date,
+                    date: new Date(),
                     user: user._id
                 });
 

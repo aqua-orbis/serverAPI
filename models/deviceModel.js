@@ -12,6 +12,10 @@ var deviceSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'registerModel'
     }],
+    days: [{
+        day: { type: String },
+        value: { type: String }
+    }],
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'userModel'
