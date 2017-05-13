@@ -90,7 +90,15 @@ exports.addRegister = function(req, res) {
                                     device.days.push(newDay);
                                 }else{
                                     device.days[dayExists].value = (+device.days[dayExists].value) + (+req.body.value);
+                                    if(device.maxPerDay) {
+                                        if((+device.days[dayExists].value) > (+device.maxPerDay)) {
+                                            device.overPassed = "true";
+                                        }else{
+                                            device.overPassed = "false";
+                                        }
+                                    }
                                 }
+
                                 device.save(function(err, device) {
                                     if (err) return res.send(500, err.message);
                                     res.status(200).jsonp(register);

@@ -25,7 +25,9 @@ var deviceSchema = new Schema({
         token: {type: String, select: false},
         lastLogin: {type: Date, select: false},
         created: {type: Date, select: false}
-    }
+    },
+    maxPerDay: { type: String },
+    overPassed: { type: String, default: "false" }
 });
 
 deviceSchema.plugin(mongooseUniqueValidator);
