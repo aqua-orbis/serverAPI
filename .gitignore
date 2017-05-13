@@ -5,3 +5,5 @@ npm-debug.log
 platforms/
 plugins/
 www/lib/
+configTelegram.json
+telegramBot/configTelegram.json
