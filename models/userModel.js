@@ -47,6 +47,10 @@ var userSchema = new Schema({
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'userModel'
+    }],
+    publications: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'publicationModel'
     }]
 });
 

@@ -34,6 +34,8 @@ var deviceMdl = require('./models/deviceModel')(app, mongoose);
 var deviceCtrl = require('./controllers/deviceController');
 var registerMdl = require('./models/registerModel')(app, mongoose);
 var registerCtrl = require('./controllers/registerController');
+var publicationMdl = require('./models/publicationModel')(app, mongoose);
+var publicationCtrl = require('./controllers/publicationController');
 
 //CORS
 app.use(function(req, res, next) {
@@ -127,6 +129,13 @@ apiRoutes.route('/devices/id/:deviceid/registers')
     .post(registerCtrl.addRegister);
 apiRoutes.route('/devices/id/:deviceid/registers/id/:registerid')
     .delete(registerCtrl.deleteRegister);
+
+
+//publication routes
+apiRoutes.route('/newsfeed')
+    .get(publicationCtrl.getNewsFeed);
+apiRoutes.route('/publications')
+    .post(publicationCtrl.addPublication)
 
 app.use('/api', apiRoutes);
 // end of API routes -------------------------------------
