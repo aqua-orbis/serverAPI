@@ -104,6 +104,8 @@ apiRoutes.route('/users/follow/:userid')
     .post(userCtrl.followUser);
 apiRoutes.route('/users/unfollow/:userid')
     .post(userCtrl.unfollowUser);
+apiRoutes.route('/users/whoisfollowingtheuser/:userid')
+    .get(userCtrl.getWhoIsFollowingTheUserId);
 
 //device routes
 apiRoutes.route('/devices')
@@ -134,6 +136,8 @@ apiRoutes.route('/devices/id/:deviceid/registers/id/:registerid')
 //publication routes
 apiRoutes.route('/newsfeed')
     .get(publicationCtrl.getNewsFeed);
+apiRoutes.route('/publications/user/id/:userid')
+    .get(publicationCtrl.getAllPublicationsByUser);
 apiRoutes.route('/publications')
     .post(publicationCtrl.addPublication);
 

@@ -23,6 +23,21 @@ exports.getAllPublications = function(req, res) {
         });
 };
 
+
+exports.getAllPublicationsByUser = function(req, res) {
+    publicationModel.find({
+            user: req.params.userid
+        })
+        .lean()
+        .populate('user', 'username img')
+        .limit(Number(req.query.pageSize))
+        .skip(pageSize * Number(req.query.page))
+        .exec(function(err, publications) {
+            if (err) return res.send(500, err.message);
+            res.status(200).jsonp(publications);
+        });
+};
+
 var ObjectId = require('mongodb').ObjectID;
 exports.getNewsFeed = function(req, res) {
     userModel.findOne({

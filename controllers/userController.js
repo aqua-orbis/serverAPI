@@ -148,7 +148,23 @@ exports.getUserById = function(req, res) {
         });
 };
 
-
+exports.getWhoIsFollowingTheUserId = function(req, res) {
+    console.log(req.params.userid);
+    userModel.find({
+            following: req.params.userid
+        })
+        .exec(function(err, users) {
+            if (err) return res.send(500, err.message);
+            if (!users) {
+                res.json({
+                    success: false,
+                    message: 'User not found.'
+                });
+            } else if (users) {
+                res.status(200).jsonp(users);
+            }
+        });
+};
 
 exports.followUser = function(req, res) {
     userModel.findOne({
@@ -175,13 +191,12 @@ exports.followUser = function(req, res) {
                             });
                         } else if (userB) {
                             var exists = false;
-                            for(var i=0; i<user.following.length; i++)
-                            {
-                                if(user.following[i].equals(userB._id)){
+                            for (var i = 0; i < user.following.length; i++) {
+                                if (user.following[i].equals(userB._id)) {
                                     exists = true;
                                 }
                             }
-                            if(exists==false){
+                            if (exists == false) {
                                 user.following.push(userB._id);
                             }
                             user.save(function(err, user) {
@@ -219,9 +234,8 @@ exports.unfollowUser = function(req, res) {
                                 message: 'userb not found.'
                             });
                         } else if (userB) {
-                            for(var i=0; i<user.following.length; i++)
-                            {
-                                if(user.following[i].equals(userB._id)){
+                            for (var i = 0; i < user.following.length; i++) {
+                                if (user.following[i].equals(userB._id)) {
                                     user.following.splice(i, 1);
                                 }
                             }
