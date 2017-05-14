@@ -6,7 +6,7 @@ var mongooseUniqueValidator = require('mongoose-unique-validator');
 var deviceSchema = new Schema({
     name: { type: String, required: true, unique: true },
     description:   { type: String, required: true },
-    icon:   { type: String, default: "defaultDevice.png" },
+    icon:   { type: String, default: "img/device.png" },
     date:   { type: Date, required: true },
     registers: [{
         type: mongoose.Schema.Types.ObjectId,
