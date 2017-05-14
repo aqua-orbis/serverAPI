@@ -109,6 +109,9 @@ apiRoutes.route('/users/unfollow/:userid')
 apiRoutes.route('/users/whoisfollowingtheuser/:userid')
     .get(userCtrl.getWhoIsFollowingTheUserId);
 
+apiRoutes.route('/users/update')
+    .put(userCtrl.updateUser);
+
 //device routes
 apiRoutes.route('/devices')
     .get(deviceCtrl.getAllDevices)

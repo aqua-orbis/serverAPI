@@ -105,6 +105,32 @@ exports.adminlogin = function(req, res) {
     }
 };
 
+
+exports.updateUser = function(req, res) {
+    userModel.findOne({
+            'tokens.token': req.headers['x-access-token']
+        })
+        .exec(function(err, user) {
+            if (err) return res.send(500, err.message);
+            if (!user) {
+                console.log("user not found");
+                res.json({
+                    success: false,
+                    message: 'User not found.'
+                });
+            } else if (user) {
+                user.description = req.body.description;
+                user.contratocod = req.body.contratocod;
+                user.numPeople = req.body.numPeople;
+                user.save(function(err, user) {
+                    if (err) return res.send(500, err.message);
+
+                    res.status(200).jsonp(user);
+                }); //end of userB.save
+            }
+        }); //end of usermodel.find
+};
+
 exports.getAllUsers = function(req, res) {
     userModel.find()
         .limit(Number(req.query.pageSize))
