@@ -36,6 +36,8 @@ var registerMdl = require('./models/registerModel')(app, mongoose);
 var registerCtrl = require('./controllers/registerController');
 var publicationMdl = require('./models/publicationModel')(app, mongoose);
 var publicationCtrl = require('./controllers/publicationController');
+var contractMdl = require('./models/contractModel')(app, mongoose);
+var contractCtrl = require('./controllers/contractController');
 
 //CORS
 app.use(function(req, res, next) {
@@ -145,6 +147,11 @@ apiRoutes.route('/publications/like/id/:publicationid')
     .post(publicationCtrl.likePublication);
 apiRoutes.route('/publications/unlike/id/:publicationid')
     .post(publicationCtrl.unlikePublication);
+
+//contract routes
+
+apiRoutes.route('/contracts/contractcod/:contractcod')
+    .get(contractCtrl.getContractByContractcod);
 
 app.use('/api', apiRoutes);
 // end of API routes -------------------------------------

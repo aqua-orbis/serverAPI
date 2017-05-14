@@ -51,7 +51,8 @@ var userSchema = new Schema({
     publications: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'publicationModel'
-    }]
+    }],
+    contratocod: { type: String }
 });
 
 userSchema.plugin(mongooseUniqueValidator);
